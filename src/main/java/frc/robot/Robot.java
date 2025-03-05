@@ -5,12 +5,18 @@
 package frc.robot;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 
 public class Robot extends TimedRobot {
   private final XboxController m_controller = new XboxController(0);
   private final Drivetrain m_drive = new Drivetrain();
+  private final QuestNav m_QuestNav = new QuestNav();
+    StructPublisher<Pose2d> publisher = NetworkTableInstance.getDefault()
+  .getStructTopic("MyPose", Pose2d.struct).publish();
 
   // Slew rate limiters to make joystick inputs more gentle; 1/3 sec from 0 to 1.
   private final SlewRateLimiter m_speedLimiter = new SlewRateLimiter(3);
@@ -30,6 +36,9 @@ public class Robot extends TimedRobot {
     // Get raw joystick inputs
     double rawXSpeed = -m_controller.getLeftY(); // Inverted for forward motion
     double rawRot = -m_controller.getRightX();   // Inverted for CCW rotation
+
+    publisher.set(m_QuestNav.getPose());
+    System.out.println(m_QuestNav.getPose());
 
     // Apply deadband
     double xSpeed = (Math.abs(rawXSpeed) < kDeadband) ? 0.0 : rawXSpeed;

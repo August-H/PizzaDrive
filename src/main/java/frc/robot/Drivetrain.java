@@ -104,9 +104,5 @@ public class Drivetrain {
         m_gyro.getRotation2d(), m_leftEncoder.getDistance(), m_rightEncoder.getDistance());
   }
 
-  public void Periodic() {
-    System.out.println("Left Voltage: " + m_leftLeader.getMotorOutputVoltage() + 
-                       ", Right Voltage: " + m_rightLeader.getMotorOutputVoltage());
-    
-}
+
 }
