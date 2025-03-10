@@ -39,7 +39,7 @@ public class QuestNav {
     return new Pose2d(getQuestNavPose().minus(resetPosition).getTranslation(), Rotation2d.fromDegrees(getOculusYaw()));
   }
 
-  // Gets the battery percent of the Quest.
+  // Gets the battery percent of the Quest. 
   public double getBatteryPercent() {
     return questBatteryPercent.get();
   }
@@ -96,6 +96,7 @@ public class QuestNav {
     float[] questnavPosition = questPosition.get();
     return new Translation2d(questnavPosition[2], -questnavPosition[0]);
   }
+  
 
   private Pose2d getQuestNavPose() {
     var oculousPositionCompensated = getQuestNavTranslation().minus(new Translation2d(0, 0.1651)); // 6.5
